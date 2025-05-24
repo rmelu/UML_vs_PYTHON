@@ -6,8 +6,9 @@ is; (è un operatore di identità, a differenza dell'operatore di uguaglianza ==
      che verifica se il valore di due oggetti è lo stesso due variabili si riferiscono allo stesso oggetto in memoria)
      esempio: X is Y restituisce True solo se X e Y sono la stessa posizione di memoria.
      Restituisce False anche se X e Y hanno lo stesso valore ma sono oggetti distinti.)'''
-
+import re
 from datetime import date
+from typing import Self
 
 class Citta:
     def __init__(self, nome: str):
@@ -55,9 +56,15 @@ class Nazione:
 
     def __repr__(self):
         return f"Nazione(nome='{self.nome}', regione={self.regione})"
-
+    
+class CodiceFiscale(str):
+    def __new__(cls, cf: str) -> Self:
+        if re.fullmatch(r'^[A-Z]{6}\d{2}[A-Z]{1}\d{2}[A-Z]{1}\d{3}[A-Z]{1}',cf): # da vedere
+            return super().__new__(cls, cf)
+        raise ValueError(f"{cf} non è un codice fiscale inserito '{cf}' non è valido.")
+        
 class Persona:
-    def __init__(self, nome: str, cognome: str, cf_codice_fiscale: str, indirizzo: str, telefono: str, data_nascita: date):
+    def __init__(self, nome: str, cognome: str, cf_codice_fiscale: CodiceFiscale, indirizzo: str, telefono: str, data_nascita: date):
         self.nome = nome
         self.cognome = cognome
         self.cf_codice_fiscale = cf_codice_fiscale
