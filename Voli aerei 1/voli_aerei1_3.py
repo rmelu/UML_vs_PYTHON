@@ -1,12 +1,8 @@
-
-
 # creazione senza assegnazione valori specifici.
-
-
 
 class Volo:
     _codice : str # <<imm>> noto alla nascita
-    _durata_minuto : int #GZ  non noto alla nascita  // #GZ : Greater than Zero (Maggiore di zero)
+    _durata_minuto : int #GZ noto alla nascita  // #GZ : Greater than Zero (Maggiore di zero)
     
     def codice(self) -> str:
         return self._codice
